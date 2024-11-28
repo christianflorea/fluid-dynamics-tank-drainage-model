@@ -74,6 +74,7 @@ tube_lengths_cm = [20, 30, 40, 60]
 tube_lengths_m = [l / 100 for l in tube_lengths_cm]
 
 drain_times = []
+exp_times = [(3*60+19)/60, (3*60+34)/60, (4*60+26)/60, (4*60+48)/60]
 
 for L in tube_lengths_m:
     sol = solve_ivp(
@@ -81,19 +82,17 @@ for L in tube_lengths_m:
         args=(L,),
         events=event_h_zero,
         dense_output=True,
-        max_step=1,
+        max_step=0.01,
         atol=1e-8,
         rtol=1e-8
     )
     if sol.t_events[0].size > 0:
         t_drain = sol.t_events[0][0]
         drain_times.append(t_drain)
-        print(f"Tube Length: {L*100:.0f} cm, Drain Time: {t_drain/60:.2f} minutes")
+        print(f"Tube Length: {L*100:.0f} cm, Drain Time: {int(t_drain // 60)} mins {int(t_drain % 60)} secs")
     else:
         print(f"Tube Length: {L*100:.0f} cm, Drain Time could not be computed.")
         drain_times.append(np.nan)
-
-exp_times = [(3*60+19)/60, (3*60+34)/60, (4*60+26)/60, (4*60+48)/60]
 
 # Plotting
 plt.figure(figsize=(8, 6))
