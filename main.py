@@ -18,7 +18,7 @@ hf = 0.04  # (m)
 # Minor losses
 K_entry = 0.5  # Entrance loss
 K_exit = 1.0   # Exit loss
-K_total = K_entry
+K_total = K_entry + K_exit
 
 def friction_factor(Re):
     if Re < 2000:
@@ -97,7 +97,7 @@ exp_times = [(3*60+19)/60, (3*60+34)/60, (4*60+26)/60, (4*60+48)/60]
 
 # Plotting
 plt.figure(figsize=(8, 6))
-plt.plot(tube_lengths_cm, np.array(drain_times)/60, marker='o', label='Model Prediction (Colebrook)')
+plt.plot(tube_lengths_cm, np.array(drain_times)/60, marker='o', label='Model Prediction')
 plt.plot(tube_lengths_cm, exp_times, marker='s', label='Experimental Data')
 plt.xlabel('Tube Length (cm)')
 plt.ylabel('Drain Time (minutes)')
