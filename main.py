@@ -24,6 +24,9 @@ hf = 0.04  # (m)
 K_entry = 0.5
 K_total = K_entry
 
+vel = []
+time = []
+
 def friction_factor(Re):
     if Re < 2000:
         # Laminar flow
@@ -45,8 +48,6 @@ def friction_factor(Re):
             print(f"Friction factor did not converge for Re={Re:.2e}")
     return f
 
-vel = []
-time = []
 
 def dhdt(t, h, L):
     h_current = max(h[0], 0.0)
